@@ -1,0 +1,8 @@
+$TTL <%= node[:bind][:ttl] %>
+@       IN      SOA     ns.<%= node[:bind][:forward_zone] %>. root.ns.<%= node[:bind][:forward_zone] %>. (
+                                2013112201      ; Serial
+                                30    ; Refresh
+                                60    ; Retry
+                                3600  ; Expire
+                                90 )  ; Minimum
+                IN      NS      ns.<%= node[:bind][:forward_zone] %>.

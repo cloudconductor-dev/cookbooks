@@ -1,0 +1,5 @@
+server <%= node['nsupdate']['dns_server'] %>
+update add <%= node['nsupdate']['fqdn'] %> <%= node['nsupdate']['ttl'] %> A <%= node['nsupdate']['ipaddress'] %>
+send
+update add <%= node[:nsupdate][:ipaddress_rev] %> <%= node['nsupdate']['ttl'] %> IN PTR  <%= node['nsupdate']['fqdn'] %>
+send

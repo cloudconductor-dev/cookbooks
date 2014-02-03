@@ -1,0 +1,14 @@
+html {
+	background-image: url('back.png');
+  background-repeat: no-repeat;
+  background-position-y: -80px;
+}
+
+h1 {
+	color: DarkBlue;
+	font-size: 70px;
+}
+
+div {
+	float: right;
+}

@@ -1,0 +1,12 @@
+$ORIGIN .
+$TTL <%= node[:bind][:ttl] %>
+<%= node[:bind][:forward_zone] %> IN SOA  ns.<%= node[:bind][:forward_zone] %>. root.ns.<%= node[:bind][:forward_zone] %>. (
+                                2013112207 ; serial
+                                30         ; refresh (30 seconds)
+                                60         ; retry (1 minute)
+                                3600       ; expire (1 hour)
+                                90         ; minimum (1 minute 30 seconds)
+                                )
+                        NS      ns.<%= node[:bind][:forward_zone] %>.
+$ORIGIN <%= node[:bind][:forward_zone] %>.
+ns                      A       <%= node[:bind][:dnsip] %>

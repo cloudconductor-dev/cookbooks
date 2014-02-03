@@ -1,0 +1,56 @@
+options {
+    listen-on port 53 { any; };
+
+    # disable IPv6
+#    listen-on-v6 port 53 { ::1; };
+
+    directory "<%= node[:bind][:directory] %>";
+    allow-query {
+    <% node[:bind][:allow_queries].each do |query| -%>
+        <%= query %>;
+    <% end %>
+    };
+    <% if node[:bind][:enable_forwarding] %>
+    forwarders {
+    <% node[:bind][:forwarders].each do |forwarder| -%>
+        <%= forwarder %>;
+    <% end %>
+    };
+    <% end %>
+
+    auth-nxdomain no;    # conform to RFC1035
+};
+
+# zones
+# TODO: make template
+zone "<%= node[:bind][:forward_zone] %>" {
+    type master;
+    file "<%= node[:bind][:forward_zone] %>";
+    allow-update {
+<% node[:bind][:allow_updates].each do |range|  %>
+    <%= range %>;
+<% end%>
+    };
+};
+
+zone "<%= node[:bind][:reverse_zone] %>" {
+    type master;
+    file "<%= node[:bind][:reverse_zone] %>";
+    allow-update {
+<% node[:bind][:allow_updates].each do |range|  %>
+    <%= range %>;
+<% end %>
+    };
+};
+
+#logging {
+#  channel default_log {
+#    file "/var/log/bind/bind.log" versions 5 size 128M;
+#    print-time yes;
+#    print-severity yes;
+#    print-category yes;
+#  };
+#      
+#  category default { default_log; };
+#  category general { default_log; };
+#};
