@@ -86,6 +86,6 @@ template '/etc/sysconfig/named' do
   owner    'root'
   group    'root'
   mode     '0644'
-  notifies :restart, 'service[bind]'
+  notifies :restart, 'service[bind]', :immediately
   only_if  { platform_family?('rhel') }
 end
