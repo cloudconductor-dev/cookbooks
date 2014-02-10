@@ -14,7 +14,7 @@ ZABBIX_LOGINID = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 TEMPLATE = opts[:template]
 
-template_file = File.open(TEMPLATE).read
+template_file = File.open(TEMPLATE, "r:utf-8").read
 rules = %w(applications discoveryRules graphs groups hosts images items maps screens
            templateLinkage templates templateScreens triggers).reduce({}) do |res, rule|
   res.merge!({"#{rule}" => {:createMissing => true, :updateExisting => true}})
