@@ -11,6 +11,10 @@ when "centos", "redhat"
   end
 end
 
+ohai "reload" do
+  action :reload
+end
+
 node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
 
 tmp_dir = Chef::Config[:file_cache_path]
