@@ -15,7 +15,12 @@ ohai "reload" do
   action :reload
 end
 
-node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
+ruby_block "set_parameter" do
+  block do
+    node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
+  end
+  action :run
+end
 
 tmp_dir = Chef::Config[:file_cache_path]
 template "#{tmp_dir}/nsupdate.params" do
