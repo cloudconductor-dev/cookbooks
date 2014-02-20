@@ -11,11 +11,11 @@ when "centos", "redhat"
   end
 end
 
-ohai "reload" do
+ohai 'reload' do
   action :reload
 end
 
-ruby_block "set_parameter" do
+ruby_block 'generate_fqdn' do
   block do
     node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
   end
