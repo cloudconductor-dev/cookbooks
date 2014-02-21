@@ -11,7 +11,16 @@ when "centos", "redhat"
   end
 end
 
-node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
+ohai 'reload' do
+  action :reload
+end
+
+ruby_block 'generate_fqdn' do
+  block do
+    node.default[:nsupdate][:fqdn] = "#{node['hostname']}.#{node[:nsupdate][:domain]}"
+  end
+  action :run
+end
 
 tmp_dir = Chef::Config[:file_cache_path]
 template "#{tmp_dir}/nsupdate.params" do
