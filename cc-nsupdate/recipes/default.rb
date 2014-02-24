@@ -53,7 +53,7 @@ case node[:platform_family]
 when 'rhel'
   execute 'disable peerdns' do
     user 'root'
-    command 'sed -i -e "s/^PEERDNS.*/PEERDNS=no/g" /etc/sysconfig/network-scripts/ifcfg-eth0'
+    command 'grep ^PEERDNS /etc/sysconfig/network-scripts/ifcfg-eth0 && sed -i -e "s/^PEERDNS.*/PEERDNS=no/g" /etc/sysconfig/network-scripts/ifcfg-eth0 || echo "PEERDNS=no" >> /etc/sysconfig/network-scripts/ifcfg-eth0'
     action :run
   end
 end
