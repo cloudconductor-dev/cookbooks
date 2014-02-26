@@ -27,7 +27,19 @@ end
 node.default[:bind][:reverse_zone] = IPAddr.new(node[:ipaddress]).reverse.split('.')[1..-1].join('.')
 node.default[:bind][:allow_updates].push("#{node[:ipaddress].split('.')[0..2].join('.')}.0/24")
 node.default[:bind][:allow_queries] = node.default[:bind][:allow_updates]
-node.default[:bind][:forwarders] = [`grep nameserver /etc/resolv.conf | awk '{print $2}'`]
+
+ruby_block 'nameservers' do
+  block do
+    node.default[:bind][:forwarders].clear
+    File.open('/etc/resolv.conf') do |f|
+      f.each_line do |line|
+        line.match(/^nameserver\s(\d+\.\d+\.\d+\.\d+)/) do |m|
+          node.default[:bind][:forwarders] << m[1]
+        end
+      end
+    end
+  end
+end
 
 template "named.conf" do
   case node[:platform_family]
