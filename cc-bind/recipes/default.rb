@@ -33,7 +33,7 @@ ruby_block 'nameservers' do
     node.default[:bind][:forwarders].clear
     File.open('/etc/resolv.conf') do |f|
       f.each_line do |line|
-        line.match(/^nameserver\s(\d+\.\d+\.\d+\.\d+)/) do |m|
+        line.match(/^nameserver\s(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/) do |m|
           node.default[:bind][:forwarders] << m[1]
         end
       end
