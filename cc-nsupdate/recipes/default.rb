@@ -59,6 +59,6 @@ when 'rhel'
 end
 
 execute "Change hosts in nsswitch " do
-  command `grep "^hosts:"  '/etc/nsswitch.conf' |sed -i -e 's/ files dns/ dns files/' '/etc/nsswitch.conf'`
+  command 'grep "^hosts:"  "/etc/nsswitch.conf" |sed -i -e "s/ files dns/ dns files/" "/etc/nsswitch.conf"'
 end
 
