@@ -27,7 +27,7 @@ database_user 'create_user' do
   password node['deploy']['database']['password']
   provider provider_database_user
   action :create
-  only_if node['deploy']['database']['username']
+  only_if { node['deploy']['database']['username'] }
 end
 
 database 'create_database' do
@@ -36,7 +36,7 @@ database 'create_database' do
   owner node['deploy']['database']['username']
   provider provider_database
   action :create
-  only_if node['deploy']['database']['dbname']
+  only_if { node['deploy']['database']['dbname'] }
 end
 
 database 'execute_sql' do
@@ -45,5 +45,5 @@ database 'execute_sql' do
   sql { File.read(node['deploy']['database']['source_path']) }
   provider provider_database
   action :query
-  only_if node['deploy']['database']['source_path']
+  only_if { node['deploy']['database']['source_path'] }
 end
