@@ -2,7 +2,7 @@ default['deploy']['tmp_dir'] = '/tmp'
 
 # Servers
 default['deploy']['servers']['application'] = []
-deafult['deploy']['servers']['database'] = []
+default['deploy']['servers']['database'] = []
 
 # Web
 default['deploy']['web']['type'] = 'apache'
