@@ -1,8 +1,8 @@
 default['cc-deploy']['tmp_dir'] = '/tmp'
 
 # Servers
-default['cc-deploy']['servers']['application'] = []
-deafult['cc-deploy']['servers']['database'] = []
+default['deploy']['application_servers']['default']['host'] = nil
+default['deploy']['application_servers']['default']['port'] = node['tomcat']['port']
 
 # Web
 default['cc-deploy']['web']['type'] = 'apache'
