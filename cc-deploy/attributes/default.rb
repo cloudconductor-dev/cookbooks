@@ -1,8 +1,10 @@
 default['deploy']['tmp_dir'] = '/tmp'
 
 # Servers
-default['deploy']['servers']['application'] = []
-deafult['deploy']['servers']['database'] = []
+default['deploy']['application_servers']['default']['host'] = nil
+default['deploy']['application_servers']['default']['port'] = node['tomcat']['port']
+default['deploy']['database_servers']['default']['host'] = nil
+default['deploy']['database_servers']['default']['port'] = 5432
 
 # Web
 default['deploy']['web']['type'] = 'apache'

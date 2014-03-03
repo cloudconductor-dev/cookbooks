@@ -1,6 +1,6 @@
 connection_info = {
-  host: node['deploy']['servers']['database'].first['host'],
-  port: node['deploy']['servers']['database'].first['port'],
+  host: node['deploy']['servers']['database_servers'].first['host'],
+  port: node['deploy']['servers']['database_servers'].first['port'],
   username: node['deploy']['database']['root_username'],
   password: node['deploy']['database']['root_password'],
 }
