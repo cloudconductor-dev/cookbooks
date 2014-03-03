@@ -13,8 +13,8 @@
   # Set to one of: Off | On | Full | Block
   ProxyVia On
 
-<% server = node['deploy']['application_servers'].first
-   port = server[:port].nil? ? node.default['deploy']['application_servers']['default']['port'] : server[:port] -%>
+<% server = node['deploy']['servers']['application'].first
+   port = server[:port].nil? ? node.default['deploy']['servers']['application']['default']['port'] : server[:port] -%>
 <% node['deploy']['applications'].each do |application| -%>
    ProxyPass <%= "/#{application[:name]} http://#{server[:host]}:#{port}/#{application[:name]}" %>
    ProxyPassReverse <%= "/#{application[:name]} http://#{server[:host]}:#{port}/#{application[:name]}" %>
