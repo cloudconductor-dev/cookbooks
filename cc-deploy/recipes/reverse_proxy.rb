@@ -1,4 +1,4 @@
-case node['deploy']['web']['type']
+case node['cc-deploy']['web']['type']
 when 'apache'
   apache_conf 'proxy'
 end

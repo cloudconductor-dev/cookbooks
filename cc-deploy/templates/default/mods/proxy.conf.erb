@@ -13,8 +13,8 @@
   # Set to one of: Off | On | Full | Block
   ProxyVia On
 
-<% server = node['deploy']['servers']['application'].first -%>
-<% node['deploy']['applications'].each do |application| -%>
+<% server = node['cc-deploy']['application_servers'].first -%>
+<% node['cc-deploy']['applications'].each do |application| -%>
   ProxyPass <%= "/#{application[:name]} http://#{server[:host]}:#{server[:port]}/#{application[:name]}" %>
   ProxyPassReverse <%= "/#{application[:name]} http://#{server[:host]}:#{server[:port]}/#{application[:name]}" %>
 <% end %>
