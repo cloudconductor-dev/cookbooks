@@ -8,12 +8,16 @@ node['cc-deploy']['applications'].each do |application|
       java_webapp do
         context_template "context.xml.erb"
         database do
+          node = Chef::Resource::ApplicationJavaJavaWebapp::node
+          node.default = Chef::Resource::ApplicationJavaJavaWebapp::node.default
+          database_port = node['cc-deploy']['servers']['database'].first['port']
+          database_default_port = node.default['deploy']['servers']['database']['default']['port']
           username   node['cc-deploy']['database']['username']
           password   node['cc-deploy']['database']['password']
           driver     "org.#{node['cc-deploy']['database']['type']}.Driver"
           adapter    node['cc-deploy']['database']['type']
-          host       node['cc-deploy']['database_servers'].first['host']
-          port       node['cc-deploy']['database_servers'].first['port']
+          host       node['cc-deploy']['servers']['database'].first['host']
+          port       database_port.nil? ? database_default_port : database_port
           database   node['cc-deploy']['database']['dbname']
           max_active application['max_active'] || node['cc-deploy']['application']['default']['max_active']
           max_idle   application['max_idle'] || node['cc-deploy']['application']['default']['max_idle']

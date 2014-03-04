@@ -1,6 +1,6 @@
 connection_info = {
-  host: node['cc-deploy']['database_servers'].first['host'],
-  port: node['cc-deploy']['database_servers'].first['port'],
+  host: node['cc-deploy']['servers']['database'].first['host'],
+  port: node['cc-deploy']['servers']['database'].first['port'],
   username: node['cc-deploy']['database']['root_username'],
   password: node['cc-deploy']['database']['root_password'],
 }
