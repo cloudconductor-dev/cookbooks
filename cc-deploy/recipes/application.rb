@@ -10,13 +10,13 @@ node['cc-deploy']['applications'].each do |application|
         database do
           node = Chef::Resource::ApplicationJavaJavaWebapp::node
           node.default = Chef::Resource::ApplicationJavaJavaWebapp::node.default
-          database_port = node['cc-deploy']['servers']['database'].first['port']
-          database_default_port = node.default['deploy']['servers']['database']['default']['port']
+          database_port = node['cc-deploy']['database_servers'].first['port']
+          database_default_port = node.default['cc-deploy']['database_servers_default']['port']
           username   node['cc-deploy']['database']['username']
           password   node['cc-deploy']['database']['password']
           driver     "org.#{node['cc-deploy']['database']['type']}.Driver"
           adapter    node['cc-deploy']['database']['type']
-          host       node['cc-deploy']['servers']['database'].first['host']
+          host       node['cc-deploy']['database_servers'].first['host']
           port       database_port.nil? ? database_default_port : database_port
           database   node['cc-deploy']['database']['dbname']
           max_active application['max_active'] || node['cc-deploy']['application']['default']['max_active']
