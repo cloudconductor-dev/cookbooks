@@ -8,7 +8,7 @@ connection_info = {
 case node['cc-deploy']['database']['type']
 when 'postgresql'
   require 'rbconfig'
-  pg_config_path = `which pg_config`.chomp
+  pg_config_path = `find /usr -name pg_config -print`.split(/\n/).first
 
   gem_package "pg" do
     gem_binary "#{RbConfig::CONFIG['bindir']}/gem"
