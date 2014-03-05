@@ -7,11 +7,17 @@ connection_info = {
 
 case node['cc-deploy']['database']['type']
 when 'postgresql'
-  include_recipe 'database::postgresql'
+  require 'rbconfig'
+  pg_config_path = "/usr/pgsql-#{node['postgresql']['version']}/bin/pg_config"
+
+  gem_package "pg" do
+    gem_binary "#{RbConfig::CONFIG['bindir']}/gem"
+    options("-- --with-pg-config=#{pg_config_path}")
+    action :install
+  end
   provider_database = Chef::Provider::Database::Postgresql
   provider_database_user = Chef::Provider::Database::PostgresqlUser
 when 'mysql'
-  include_recipe 'database::mysql'
   provider_database = Chef::Provider::Database::Mysql
   provider_database_user = Chef::Provider::Database::MysqlUser
 when 'sql_server'
