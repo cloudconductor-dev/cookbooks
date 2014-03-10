@@ -4,8 +4,8 @@ database_default_port = node.default['cc-deploy']['database_servers_default']['p
 connection_info = {
   host: node['cc-deploy']['database_servers'].first['host'],
   port: database_port.nil? ? database_default_port : database_port,
-  username: node['database']['root_username'],
-  password: node['database']['root_password'],
+  username: node['cc-deploy']['database']['root_username'],
+  password: node['cc-deploy']['database']['root_password'],
 }
 
 case node['cc-deploy']['database']['type']
