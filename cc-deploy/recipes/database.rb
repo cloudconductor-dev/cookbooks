@@ -48,8 +48,14 @@ database 'create_database' do
   only_if { node['cc-deploy']['database']['dbname'] }
 end
 
+connection_info_sql = {
+  host: connection_info[:host],
+  port: connection_info[:port],
+  username: node['cc-deploy']['database']['username'],
+  password: node['cc-deploy']['database']['password']
+}
 database 'execute_sql' do
-  connection connection_info
+  connection connection_info_sql
   database_name node['cc-deploy']['database']['dbname']
   sql { File.read(node['cc-deploy']['database']['source_path']) }
   provider provider_database
