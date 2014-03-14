@@ -1,3 +1,12 @@
+if node['cc-deploy']['database']['type'] == 'postgresql'
+  driver_name = node['postgresql']['client']['packages'].find{|pkg| pkg.include?('jdbc')}
+  link "#{node['tomcat']['lib_dir']}/#{node['cc-deploy']['database']['type']}-jdbc.jar" do
+    group 'tomcat'
+    owner 'tomcat'
+    to "#{node['cc-deploy']['database']['driver_path']}/#{driver_name}.jar"
+  end
+end
+
 node['cc-deploy']['applications'].each do |application|
   case application['type'] || node['cc-deploy']['application']['default']['type']
   when 'java'

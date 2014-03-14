@@ -25,6 +25,7 @@ default['cc-deploy']['database']['dbname'] = node['cc-deploy']['application']['n
 default['cc-deploy']['database']['username'] = node['cc-deploy']['application']['name']
 default['cc-deploy']['database']['password'] = node['cc-deploy']['application']['name']
 default['cc-deploy']['database']['source_path'] = nil
+default['cc-deploy']['database']['driver_path'] = '/usr/share/java'
 
 # File
 default['cc-deploy']['file']['source_path'] = nil
