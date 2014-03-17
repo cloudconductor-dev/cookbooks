@@ -39,6 +39,17 @@ database_user 'create_user' do
   only_if { node['cc-deploy']['database']['username'] }
 end
 
+if node['cc-deploy']['database']['type'] == 'postgresql'
+  postgresql_database 'alter password' do
+    connection connection_info
+    provider provider_database
+    database_name 'template1'
+    sql "alter role #{node['cc-deploy']['database']['username']} with password '#{node['cc-deploy']['database']['password']}'"
+    action :query
+    only_if { node['cc-deploy']['database']['username'] && node['cc-deploy']['database']['password'] }
+  end
+end
+
 database 'create_database' do
   connection connection_info
   database_name node['cc-deploy']['database']['dbname']
