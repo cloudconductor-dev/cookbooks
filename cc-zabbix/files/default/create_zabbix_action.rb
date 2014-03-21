@@ -18,7 +18,7 @@ SERVER_NAME = opts[:server_name]
 HOSTGROUP = opts[:hostgroup]
 TEMPLATE = opts[:template]
 
-zbxapi = ZabbixAPI.new(ZABBIX_API_URL)
+zbxapi = ZabbixAPI.new(ZABBIX_API_URL, {:custom_headers => {}})
 zbxapi.login(ZABBIX_LOGINID, ZABBIX_PASSWORD)
 tmpl = zbxapi.template.get({:filter => {:name => TEMPLATE.split(',')}})
 group = zbxapi.hostgroup.get({:filter => {:name => HOSTGROUP.split(',')}})

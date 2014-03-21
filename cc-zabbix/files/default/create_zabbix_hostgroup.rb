@@ -14,7 +14,7 @@ ZABBIX_LOGINID = "Admin"
 ZABBIX_PASSWORD = "zabbix"
 HOSTGROUP = opts[:hostgroup]
 
-zbxapi = ZabbixAPI.new(ZABBIX_API_URL)
+zbxapi = ZabbixAPI.new(ZABBIX_API_URL, {:custom_headers => {}})
 zbxapi.login(ZABBIX_LOGINID, ZABBIX_PASSWORD)
 group = zbxapi.hostgroup.get({:filter => {:name => HOSTGROUP}})
 zbxapi.hostgroup.create({:name => HOSTGROUP}) if group.empty?

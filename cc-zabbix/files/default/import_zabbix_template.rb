@@ -20,7 +20,7 @@ rules = %w(applications discoveryRules graphs groups hosts images items maps scr
   res.merge!({"#{rule}" => {:createMissing => true, :updateExisting => true}})
 end
 
-zbxapi = ZabbixAPI.new(ZABBIX_API_URL)
+zbxapi = ZabbixAPI.new(ZABBIX_API_URL, {:custom_headers => {}})
 zbxapi.login(ZABBIX_LOGINID, ZABBIX_PASSWORD)
 zbxapi.configuration.import({
   :format => 'xml',
