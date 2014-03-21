@@ -17,7 +17,7 @@ CURRENT_NAME = opts[:current_name]
 UPDATE_NAME = opts[:update_name]
 
 begin
-  zbxapi = ZabbixAPI.new(ZABBIX_API_URL)
+  zbxapi = ZabbixAPI.new(ZABBIX_API_URL, {:custom_headers => {}})
   zbxapi.login(ZABBIX_LOGINID, ZABBIX_PASSWORD)
   tmpl = zbxapi.template.get({:filter => {:name => CURRENT_NAME}}).first
   tmpl.merge!(:name => UPDATE_NAME)
