@@ -24,7 +24,19 @@ service "bind" do
   action [ :enable, :start ]
 end
 
-node.default[:bind][:reverse_zone] = IPAddr.new(node[:ipaddress]).reverse.split('.')[1..-1].join('.')
+addr = IPAddr.new(node[:'cc-bind'][:network])
+prefix = node[:'cc-bind'][:network].split('/').last
+
+if prefix.to_i > 24
+    node.default[:bind][:reverse_zone] = addr.reverse
+elsif prefix.to_i > 16
+    node.default[:bind][:reverse_zone] = addr.reverse.split('.')[1..-1].join('.')
+elsif prefix.to_i > 8
+    node.default[:bind][:reverse_zone] = addr.reverse.split('.')[2..-1].join('.')
+else
+    node.default[:bind][:reverse_zone] = addr.reverse.split('.')[3..-1].join('.')
+end
+
 node.default[:bind][:allow_updates].push("#{node[:ipaddress].split('.')[0..2].join('.')}.0/24")
 node.default[:bind][:allow_queries] = node.default[:bind][:allow_updates]
 
