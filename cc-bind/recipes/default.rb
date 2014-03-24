@@ -37,7 +37,7 @@ else
     node.default[:bind][:reverse_zone] = addr.reverse.split('.')[3..-1].join('.')
 end
 
-node.default[:bind][:allow_updates].push("#{node[:ipaddress].split('.')[0..2].join('.')}.0/24")
+node.default[:bind][:allow_updates].push(node[:'cc-bind'][:network])
 node.default[:bind][:allow_queries] = node.default[:bind][:allow_updates]
 
 ruby_block 'nameservers' do
